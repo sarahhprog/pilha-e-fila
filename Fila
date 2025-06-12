@@ -1,0 +1,137 @@
+using System;
+using System.Collections;
+using System.Threading;
+
+class Veiculos
+{
+    public string Nome;
+    public string Placa;
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        int Opçao = 0;
+        Queue<Veiculos> FilaVeiculos = new Queue<Veiculos>(8); // Fila com capacidade máxima para 8 veículos
+
+        do
+        {
+            Console.Clear();
+            Console.WriteLine("  Estacionamento da Sarah ");
+            Console.WriteLine(" 1 - Inserir veículo");
+            Console.WriteLine(" 2 - Remover veículo");
+            Console.WriteLine(" 3 - Listar todos os veículos");
+            Console.WriteLine(" 4 - Esvaziar tudo");
+            Console.WriteLine(" 5 - Sair");
+            Console.Write("Digite a opção desejada: ");
+            Opçao = int.Parse(Console.ReadLine());
+
+            switch (Opçao)
+            {
+                case 1:
+                    if (FilaVeiculos.Count < 8)
+                    {
+                        Console.Clear();
+                        Veiculos veiculos = new Veiculos();
+
+                        Console.Write("Digite o nome do veículo: ");
+                        veiculos.Nome = Console.ReadLine();
+
+                        Console.Write("Digite a placa: ");
+                        veiculos.Placa = Console.ReadLine();
+
+                        FilaVeiculos.Enqueue(veiculos); // Insere o veículo no final da fila
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nEstacionamento cheio!");
+                        Console.ReadKey();
+                    }
+                    break;
+
+                case 2:
+                    if (FilaVeiculos.Count > 0)
+                    {
+                        Console.Clear();
+                        Console.Write("Para remover, informe a placa: ");
+                        string Placa = Console.ReadLine();
+
+                        int i = 0;
+                        Veiculos Carro = new();
+                        bool Encontrou = false;
+
+                        // remove o veículo com a placa correspondente
+                        while (i < FilaVeiculos.Count())
+                        {
+                            Carro = FilaVeiculos.Dequeue();
+
+                            if (Placa == Carro.Placa)
+                            {
+                                Console.WriteLine("Veículo excluído");
+                                Encontrou = true;
+                            }
+                            else
+                            {
+                                FilaVeiculos.Enqueue(Carro);
+                            }
+
+                            i++;
+                        }
+
+                        if (!Encontrou)
+                        {
+                            Console.WriteLine("Veículo não está no estacionamento");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Fila vazia");
+                    }
+
+                    Console.ReadKey();
+                    break;
+
+                case 3:
+                    if (FilaVeiculos.Count > 0)
+                    {
+                        Console.Clear();
+                        foreach (Veiculos carro in FilaVeiculos)
+                        {
+                            Console.WriteLine($"Nome do carro: {carro.Nome}");
+                            Console.WriteLine($"Placa do {carro.Nome}: {carro.Placa}");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Estacionamento vazio!");
+                    }
+
+                    Console.ReadKey();
+                    break;
+
+                case 4:
+                    Console.Clear();
+                    FilaVeiculos.Clear(); // Remove todos os veículos da fila
+                    Console.WriteLine("Estacionamento esvaziado!");
+                    Console.ReadKey();
+                    break;
+
+                case 5:
+                    Console.Write("\nSaindo do estacionamento");
+                    for (int i = 0; i < 4; i++)
+                    {
+                        Thread.Sleep(400);
+                        Console.Write(".");
+                    }
+                    break;
+
+                default:
+                    Console.WriteLine("Opção inválida!");
+                    Console.ReadKey();
+                    break;
+            }
+
+        } while (Opçao != 5);
+    }
+}
