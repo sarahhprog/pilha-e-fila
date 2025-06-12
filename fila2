@@ -1,0 +1,52 @@
+class Cidade
+{
+    public string Nome;
+    public double Latitude;
+    public double Longitude;
+
+    public Cidade(string nome, double latitude, double longitude)
+    {
+        Nome = nome;
+        Latitude = latitude;
+        Longitude = longitude;
+    }
+}
+
+class Program
+{
+    static double CalculaDistancia(Cidade cidade1, Cidade cidade2)
+    {
+        
+        double distancia = Math.Sqrt(Math.Pow(cidade1.Latitude - cidade2.Latitude, 2) + Math.Pow(cidade1.Longitude - cidade2.Longitude, 2));
+
+        Console.WriteLine($"A distancia entre {cidade1.Nome} e {cidade2.Nome} é de {distancia:F2} ");
+
+        return distancia;
+    }
+    static void Main(string[] args)
+    {
+        Queue<Cidade> roteiro = new Queue<Cidade>();
+
+        roteiro.Enqueue(new Cidade("Nova York", 40.7128, -74.0060));
+        roteiro.Enqueue(new Cidade("Miami", 25.7617, -80.1918));
+        roteiro.Enqueue(new Cidade("Los Angeles", 34.0522, -118.2437));
+        roteiro.Enqueue(new Cidade("Seattle", 47.6062, -122.3321));
+        roteiro.Enqueue(new Cidade("Orlando", 28.5383, -81.3792));
+
+        double Distancia = 0;
+//percorre todas as cidades da lista
+        for (int i = 0; i < roteiro.Count; i++)
+        {
+            Cidade A = roteiro.Dequeue();
+            Cidade B = roteiro.Peek();
+//calcula a distancia
+            Distancia += CalculaDistancia(A, B); 
+
+            roteiro.Enqueue(A);
+
+        }
+        Console.WriteLine($"A distância total é de: {Distancia:F2} ");
+    }
+}
+
+
