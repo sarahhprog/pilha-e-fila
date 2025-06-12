@@ -1,0 +1,59 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        Stack<int> pilhaA = new Stack<int>();
+        pilhaA.Push(13);
+        pilhaA.Push(26);
+        pilhaA.Push(39);
+        pilhaA.Push(52);
+        pilhaA.Push(65);
+
+        Stack<int> pilhaB = new Stack<int>();
+        pilhaB.Push(1);
+        pilhaB.Push(2);
+        pilhaB.Push(52);
+        pilhaB.Push(104);
+        pilhaB.Push(208); 
+
+        pilhaB.Clear();
+        pilhaB.Push(7);
+        pilhaB.Push(14);
+        pilhaB.Push(26);
+        pilhaB.Push(52);
+        pilhaB.Push(77);
+
+        Queue<int> fila = new Queue<int>();
+
+        Console.WriteLine("Verificando elementos de Pilha A em Pilha B:");
+        foreach (int itemA in pilhaA)
+        {
+            Console.Write($" - Testando {itemA} da Pilha A: ");
+            if (pilhaB.Contains(itemA))
+            {
+                Console.WriteLine($"Encontrado em Pilha B e adicionando a fila.");
+                fila.Enqueue(itemA);
+            }
+            else
+            {
+                Console.WriteLine($"Não encontrado em Pilha B.");
+            }
+        }
+
+        Console.WriteLine("\nElementos da Fila ");
+        if (fila.Count == 0)
+        {
+            Console.WriteLine("A fila está vazia.");
+        }
+        else
+        {
+            foreach (int itemFila in fila)
+            {
+                Console.WriteLine(itemFila);
+            }
+        }
+    }
+}
