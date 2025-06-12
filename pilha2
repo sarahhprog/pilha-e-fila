@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Random random = new Random();
+        List<int> numeros = new List<int>();
+
+        for (int i = 0; i < 10; i++)
+        {
+            int numero = random.Next(1, 21); // Gera número aleatório entre 1 e 20
+            numeros.Add(numero);
+        }
+
+        Console.WriteLine("Numeros: ");
+        foreach (int lista in numeros)
+        {
+            Console.Write($"{lista} ");
+        }
+
+        Stack<int> pilha1 = new Stack<int>();
+        Stack<int> pilha2 = new Stack<int>();
+
+        foreach (var numero in numeros)
+            if (!pilha1.Contains(numero)) // Add a pilha1 os valores sem repetições
+                pilha1.Push(numero);
+            else
+                pilha2.Push(numero); //  valores repetidos
+
+        Console.WriteLine("\nPilha que não tem repetição: ");
+        foreach (int pilha in pilha1)
+        {
+            Console.Write($"{pilha} ");
+        }
+
+        Console.WriteLine("\nPilha com repetição: ");
+        foreach (int pilha in pilha2)
+        {
+            Console.Write($"{pilha} ");
+        }
+    }
+}
+
+
